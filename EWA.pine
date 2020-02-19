@@ -1,0 +1,25 @@
+// Author: Alberto Casas Ortiz
+
+// Copyright © 2020, Alberto Casas Ortiz
+// This Script is licensed under the GNU General Public License v3.0
+
+// Implementation of exponentially weighted averages in Pine Script.
+// Change hyperparammeters beta and length for better performance.
+// Value ranges: 0 < beta <= 1; 0 <= lngth <= 1
+// 
+
+title   = "Exponentially Weighted Averages"
+study(title="EWA", overlay = true)
+
+// Sources. Get open and close to estimate average.
+src_average = input(hl2)
+
+// Hyperparameters.
+beta = 0.005
+length = 1
+
+// EWA values calculus.
+ewa = beta * src_average[length] + (1- beta) * nz(ewa[1])
+
+// Plot EWA.
+plot(ewa, color=blue, transp=30, linewidth=2)

@@ -1,0 +1,27 @@
+// Author: Alberto Casas Ortiz
+
+// Copyright © 2020, Alberto Casas Ortiz
+// This Script is licensed under the GNU General Public License v3.0
+
+// Implementation of differences of exponentially weighted averages in Pine Script.
+// Change hyperparammeters beta and length for better performance.
+// Value ranges: 0 < beta <= 1; 0 <= lngth <= 1
+// 
+
+title   = "Differences of Exponentially Weighted Averages"
+study(title="Diff-EWA", overlay = false)
+
+// Sources. Get open and close to estimate average.
+src_average = input(hl2)
+
+// Hyperparameters.
+beta = 0.01
+length = 1
+
+// EWA values calculus.
+ewa = beta * src_average[length] + (1- beta) * nz(ewa[1])
+ewa_differences = beta * (ewa - ewa[1]) + (1- beta) * nz(ewa - ewa[1])
+
+// Plot EWA.
+plot(ewa_differences, color=blue, transp=30, linewidth=2)
+plot(ewa_differences > 0 ? highest(ewa_differences, 100) : lowest(ewa_differences, 100), color=red, transp=30, linewidth=1)
