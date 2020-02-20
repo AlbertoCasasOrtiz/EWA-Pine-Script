@@ -1,4 +1,4 @@
-# EWA-Pine-Script
+# EWA in Pine Script
 Implementation of Exponentially Weighted Averages and it difference in Pine Script. It can generate a line that adjust to the overall trend of a graphic.
 
 ## Exponentially Weighted Averages
